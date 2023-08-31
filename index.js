@@ -24,24 +24,21 @@ const config = {
         width: 300,
         height: 150
     },
-    formatsToSupport: html5ScannerFormat
+    // formatsToSupport: html5ScannerFormat
+}
+var html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", config
+)
+html5QrcodeScanner.render(onScanSuccess)
+
+function onScanSuccess(decodedText, decodedResult) {
+    const inputElem = document.getElementById('inputBarcode')
+    if (inputElem) {
+        inputElem.value = decodedText
+    }
+    console.log(decodedResult)
 }
 
-window.onload = () => {
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", config
-    )
-    html5QrcodeScanner.render(onScanSuccess)
-
-    function onScanSuccess(decodedText, decodedResult) {
-        const inputElem = document.getElementById('inputBarcode')
-        if (inputElem) {
-            inputElem.value = decodedText
-        }
-        console.log(decodedResult)
-    }
-
-    function onScanError(errorMessage) {
-        console.log(errorMessage)
-    }
+function onScanError(errorMessage) {
+    console.log(errorMessage)
 }
